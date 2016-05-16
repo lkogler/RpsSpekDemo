@@ -1,0 +1,34 @@
+buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+mainClassName = 'demo.PlayGameKt'
+
+defaultTasks 'run'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://repository.jetbrains.com/all"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'junit:junit:4.11'
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile 'org.jetbrains.spek:spek:1.0.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.7"
+}
