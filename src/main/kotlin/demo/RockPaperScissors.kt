@@ -8,48 +8,17 @@ class RockPaperScissors {
         moves[player] = move
     }
 
-
     fun getResult(): String {
         var winner: Player? = null
 
-        if(moves[Player.ONE] == null) {
-            return Player.ONE.toString() + " must make a move!"
-        }
+        val playerOneMove = moves[Player.ONE] ?: return Player.ONE.toString() + " must make a move!"
+        val playerTwoMove = moves[Player.TWO] ?: return Player.TWO.toString() + " must make a move!"
 
-        val playerOneMove = moves[Player.ONE]!!
-
-        if(moves[Player.TWO] == null) {
-            return Player.TWO.toString() + " must make a move!"
-        }
-
-        val playerTwoMove = moves[Player.TWO]!!
-
-        if(playerOneMove != playerTwoMove) {
-            if(moves[Player.ONE] == Move.ROCK) {
-                if(moves[Player.TWO] == Move.SCISSORS) {
-                    winner = Player.ONE
-                }
-                if(moves[Player.TWO] == Move.PAPER) {
-                    winner = Player.TWO
-                }
-            }
-
-            if(moves[Player.ONE] == Move.SCISSORS) {
-                if(moves[Player.TWO] == Move.PAPER) {
-                    winner = Player.ONE
-                }
-                if(moves[Player.TWO] == Move.ROCK) {
-                    winner = Player.TWO
-                }
-            }
-
-            if(moves[Player.ONE] == Move.PAPER) {
-                if(moves[Player.TWO] == Move.ROCK) {
-                    winner = Player.ONE
-                }
-                if(moves[Player.TWO] == Move.SCISSORS) {
-                    winner = Player.TWO
-                }
+        if (playerOneMove != playerTwoMove) {
+            if (playerOneMove.beats(playerTwoMove)) {
+                winner = Player.ONE
+            } else {
+                winner = Player.TWO
             }
         }
 
@@ -57,7 +26,7 @@ class RockPaperScissors {
     }
 
     private fun getResultString(winner: Player?): String {
-        if(winner == null) {
+        if (winner == null) {
             return "The players tied!"
         }
         return winner.toString() + " wins!"
